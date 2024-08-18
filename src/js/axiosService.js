@@ -17,9 +17,9 @@ httpNoTokenService.interceptors.request.use(
         console.log(config.baseURL);
         // 在发送请求之前做些什么
         // 例如，统一添加请求头
-        config.headers['SOURCE'] = 'WEB'; // 这里的'your-token'替换为你的实际token
+        // config.headers['SOURCE'] = 'WEB'; // 这里的'your-token'替换为你的实际token
         config.headers['Content-Type'] = 'application/json'; // 设置请求的Content-Type
-        config.headers['TRACE-ID'] = uuidv4(); // 设置请求的Content-Type
+        config.headers['traceId'] = uuidv4(); // 设置请求的Content-Type
         return config;
     },
     error => {

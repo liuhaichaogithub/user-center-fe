@@ -5,7 +5,7 @@ const imageSrc = ref('');
 function postUrl() {
   httpNoTokenService({
     method: "get",//指定请求方式
-    url: "/user-center/public/v1/verificationCode/getImageCode",//请求接口（相对接口，后面会介绍到）
+    url: "/user-center/login/getImageCode",//请求接口（相对接口，后面会介绍到）
     // data: {
     //   cityId: cityId,
     //   data:{},
@@ -16,7 +16,7 @@ function postUrl() {
   })//面向1-3年前端人员
       .then(function(res){//帮助突破技术瓶颈，提升思维能力
         //接口成功返回结果执行
-        imageSrc.value =res.data.data.imageCodeBse64;
+        imageSrc.value =res.data.data;
       })
       .catch(function(err){
         alert(err)
