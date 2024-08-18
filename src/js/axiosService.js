@@ -1,6 +1,5 @@
-
 import axios from 'axios';
-import { v4 as uuidv4 } from 'uuid';
+import {v4 as uuidv4} from 'uuid';
 // 创建axios实例
 const httpNoTokenService = axios.create({
     // API的base_url
@@ -17,14 +16,23 @@ httpNoTokenService.interceptors.request.use(
         console.log(config.baseURL);
         // 在发送请求之前做些什么
         // 例如，统一添加请求头
-        config.headers['SOURCE'] = 'WEB'; // 这里的'your-token'替换为你的实际token
+        // config.headers['SOURCE'] = 'WEB'; // 这里的'your-token'替换为你的实际token
         config.headers['Content-Type'] = 'application/json'; // 设置请求的Content-Type
-        config.headers['TRACE-ID'] = uuidv4(); // 设置请求的Content-Type
+        config.headers['traceId'] = uuidv4(); // 设置请求的Content-Type
         return config;
     },
     error => {
         // 处理请求错误
         return Promise.reject(error);
+    }
+);
+
+// 响应拦截器
+httpNoTokenService.interceptors.response.use(
+    response => {
+        console.log('响应拦截器');
+    }, error => {
+
     }
 );
 

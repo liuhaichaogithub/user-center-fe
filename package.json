@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "element-plus": "^2.8.1",
     "uuid": "^10.0.0",
     "vue": "^3.4.35",
     "vue-axios": "^3.5.2",
