@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {v4 as uuidv4} from 'uuid';
+import { ElNotification } from 'element-plus'
 // 创建axios实例
 const httpNoTokenService = axios.create({
     // API的base_url
@@ -30,9 +31,23 @@ httpNoTokenService.interceptors.request.use(
 // 响应拦截器
 httpNoTokenService.interceptors.response.use(
     response => {
-        console.log('响应拦截器');
+        if (response.data.code !== 200) {
+            ElNotification({
+                title: 'Error',
+                message: response.data.msg,
+                type: 'error',
+            })
+            return Promise.reject(response.data.msg);
+        }else{
+            return response;
+        }
     }, error => {
-
+        ElNotification({
+            title: 'Error',
+            message: error.data.msg,
+            type: 'error',
+        })
+        return Promise.reject(error);
     }
 );
 

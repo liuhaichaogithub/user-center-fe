@@ -2,7 +2,7 @@
 import httpNoTokenService from "./js/axiosService.js";
 import {reactive, ref} from 'vue';
 import {v4 as uuidv4} from "uuid";
-
+import {ElNotification} from 'element-plus'
 
 const imageSrc = ref('');
 let imageCodeTraceId = ref('');
@@ -19,9 +19,17 @@ function loginPost() {
     }
   })//面向1-3年前端人员
       .then(function (res) {//帮助突破技术瓶颈，提升思维能力
-        alert(res)
+        if (res.data.code !== 200) {
+          postUrl();
+        } else {
+          ElNotification({
+            title: 'Success',
+            message: '登录成功',
+            type: 'success',
+          })
+        }
       }).catch(function (err) {
-    alert(err)
+    postUrl();
   })
 }
 
@@ -42,9 +50,9 @@ function postUrl() {
         //接口成功返回结果执行
         imageSrc.value = res.data.data;
       })
-      .catch(function (err) {
-        alert(err)
-      })
+  // .catch(function (err) {
+  //   alert(err)
+  // })
 
 }
 
@@ -60,19 +68,19 @@ postUrl();
 
 <template>
   <div class="login-title">
-    <span>欢迎登录</span>
+    <span style="align-content: center">欢迎登录</span>
   </div>
   <div id="loginFrom">
     <el-form :model="formData" ref="vForm" :rules="rules" label-position="left" label-width="80px"
              size="default" @submit.prevent>
       <el-form-item label="用户名" prop="username" class="required">
-        <el-input v-model="formData.username" type="text" clearable></el-input>
+        <el-input v-model="formData.username" type="text"></el-input>
       </el-form-item>
       <el-form-item label="密码" prop="password" class="required">
-        <el-input v-model="formData.password" type="text" clearable></el-input>
+        <el-input v-model="formData.password" type="password" show-password></el-input>
       </el-form-item>
       <el-form-item label="验证码" prop="imageCode" class="required">
-        <el-input v-model="formData.imageCode" type="text" clearable></el-input>
+        <el-input v-model="formData.imageCode" type="text"></el-input>
       </el-form-item>
       <div class="static-content-item">
         <el-button type="primary" @click="loginPost">登录</el-button>
