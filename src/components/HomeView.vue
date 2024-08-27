@@ -1,13 +1,16 @@
 <script setup>
 
+
+import {ref} from "vue";
+
+let userName = ref(localStorage.getItem("userName"))
+
 </script>
 
 <template>
-  <p>Home</p>
+  <p>登录成功</p>
+  <p>{{ userName }}</p>
 </template>
 
 <style scoped>
-.read-the-docs {
-  color: #888;
-}
 </style>
